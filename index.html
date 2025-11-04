@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khan Bank - Баталгаажуулалт</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(135deg, #00a859 0%, #008f4a 100%);
+    padding: 30px;
+    text-align: center;
+    color: white;
+}
+
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.content {
+    padding: 30px;
+}
+
+.success-icon {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.success-icon i {
+    font-size: 60px;
+    color: #00a859;
+}
+
+.info-box {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.info-value {
+    color: #222;
+    text-align: right;
+}
+
+.amount {
+    font-size: 32px;
+    font-weight: bold;
+    color: #00a859;
+    text-align: center;
+    margin: 25px 0;
+}
+
+.activation-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 25px 0;
+    text-align: center;
+}
+
+.activation-box h3 {
+    color: #856404;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.activation-box p {
+    color: #856404;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.btn {
+    background: linear-gradient(135deg, #00a859 0%, #008f4a 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0,168,89,0.3);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,168,89,0.4);
+}
+
+.progress-container {
+    display: none;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.progress-circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+}
+
+.progress-circle svg {
+    transform: rotate(-90deg);
+}
+
+.progress-bg {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 8;
+}
+
+.progress-bar {
+    fill: none;
+    stroke: #00a859;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 440;
+    stroke-dashoffset: 440;
+    transition: stroke-dashoffset 0.3s;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    font-weight: bold;
+    color: #00a859;
+}
+
+.timer {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.fee-alert {
+    display: none;
+    background: #f8d7da;
+    border: 2px solid #dc3545;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 25px 0;
+    text-align: center;
+}
+
+.fee-alert h3 {
+    color: #721c24;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.fee-alert .fee-amount {
+    font-size: 36px;
+    font-weight: bold;
+    color: #dc3545;
+    margin: 20px 0;
+}
+
+.fee-alert p {
+    color: #721c24;
+    line-height: 1.6;
+}
+
+.footer {
+    background: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        border-radius: 0;
+    }
+    
+    .content {
+        padding: 20px;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .info-value {
+        text-align: left;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-university"></i> KHAN BANK</h1>
+        <p>Цахим банкны үйлчилгээ</p>
+    </div>
+
+    <div class="content">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+
+        <h2 style="text-align: center; color: #00a859; margin-bottom: 20px;">
+            Гүйлгээ амжилттай
+        </h2>
+
+        <div class="info-box">
+            <div class="info-row">
+                <span class="info-label">Хүлээн авагч:</span>
+                <span class="info-value">Нямцэрэн Батболд</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Дансны дугаар:</span>
+                <span class="info-value">5132244758</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Банк:</span>
+                <span class="info-value">Хаан банк</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Төлөв:</span>
+                <span class="info-value" style="color: #00a859;">
+                    <i class="fas fa-check"></i> Баталгаажсан
+                </span>
+            </div>
+        </div>
+
+        <div class="amount">8,800,000 ₮</div>
+
+        <div class="activation-box" id="activationBox">
+            <h3><i class="fas fa-exclamation-triangle"></i> Баталгаажуулалт шаардлагатай</h3>
+            <p>
+                Таны гүйлгээг эцэслэн баталгаажуулахын тулд активаци хийх шаардлагатай байна.
+                Доорх товчлуурыг дарж үргэлжлүүлнэ үү.
+            </p>
+            <button class="btn" id="activateBtn">
+                <i class="fas fa-play"></i> Активаци эхлүүлэх
+            </button>
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <h3 style="color: #00a859; margin-bottom: 20px;">Баталгаажуулалт явагдаж байна...</h3>
+            <div class="progress-circle">
+                <svg width="150" height="150">
+                    <circle class="progress-bg" cx="75" cy="75" r="70"></circle>
+                    <circle class="progress-bar" id="progressBar" cx="75" cy="75" r="70"></circle>
+                </svg>
+                <div class="progress-text" id="progressText">0%</div>
+            </div>
+            <div class="timer" id="timer">Үлдсэн хугацаа: 15:00</div>
+        </div>
+
+        <div class="fee-alert" id="feeAlert">
+            <h3><i class="fas fa-exclamation-circle"></i> Шимтгэл төлөлт шаардлагатай</h3>
+            <p>
+                Таны активаци бараг дууссан боловч баталгаажуулалтын шимтгэл төлөх шаардлагатай:
+            </p>
+            <div class="fee-amount">180,000 ₮</div>
+            <p>
+                Энэ шимтгэлийг төлсний дараа таны <strong>8,800,000₮</strong> 
+                данс руу шууд шилжих болно.
+            </p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <i class="fas fa-lock"></i> Аюулгүй холболт
+    </div>
+</div>
+<script>
+    const activateBtn = document.getElementById('activateBtn');
+    const activationBox = document.getElementById('activationBox');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const timer = document.getElementById('timer');
+    const feeAlert = document.getElementById('feeAlert');
+    
+    const DURATION = 5 * 60 * 1000; // 15 minutes
+    const INTERVAL = 100;
+    const MAX = 99;
+    const CIRCUMFERENCE = 2 * Math.PI * 70;
+    
+    progressBar.style.strokeDasharray = CIRCUMFERENCE;
+    progressBar.style.strokeDashoffset = CIRCUMFERENCE;
+    
+    let startTime;
+    
+    // --- Fonction principale de mise à jour ---
+    function update() {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min((elapsed / DURATION) * MAX, MAX);
+    
+        const offset = CIRCUMFERENCE - (progress / 100) * CIRCUMFERENCE;
+        progressBar.style.strokeDashoffset = offset;
+        progressText.textContent = Math.floor(progress) + '%';
+    
+        const remaining = Math.max(0, DURATION - elapsed);
+        const mins = Math.floor(remaining / 60000);
+        const secs = Math.floor((remaining % 60000) / 1000);
+        timer.textContent = `Үлдсэн хугацаа: ${mins}:${secs.toString().padStart(2, '0')}`;
+    
+        if (progress < MAX) {
+            setTimeout(update, INTERVAL);
+        } else {
+            progressText.textContent = '99%';
+            timer.textContent = 'Бараг дууслаа...';
+            localStorage.setItem('activationStatus', 'feeRequired');
+            setTimeout(() => {
+                feeAlert.style.display = 'block';
+                feeAlert.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
+    }
+    
+    // --- Démarrage de l’activation ---
+    activateBtn.addEventListener('click', () => {
+        startTime = Date.now();
+        localStorage.setItem('activationStart', startTime);
+        localStorage.setItem('activationStatus', 'inProgress');
+    
+        activationBox.style.display = 'none';
+        progressContainer.style.display = 'block';
+        update();
+    });
+    
+    // --- Vérifie l’état sauvegardé au chargement ---
+    window.addEventListener('load', () => {
+        const status = localStorage.getItem('activationStatus');
+        const savedStart = localStorage.getItem('activationStart');
+    
+        if (status === 'inProgress' && savedStart) {
+            startTime = parseInt(savedStart, 10);
+            const elapsed = Date.now() - startTime;
+    
+            if (elapsed >= DURATION) {
+                // Déjà fini → afficher feeAlert
+                activationBox.style.display = 'none';
+                progressContainer.style.display = 'none';
+                feeAlert.style.display = 'block';
+            } else {
+                // Toujours en cours
+                activationBox.style.display = 'none';
+                progressContainer.style.display = 'block';
+                update();
+            }
+        } else if (status === 'feeRequired') {
+            activationBox.style.display = 'none';
+            progressContainer.style.display = 'none';
+            feeAlert.style.display = 'block';
+        } else {
+            // Par défaut : rien commencé
+            activationBox.style.display = 'block';
+            progressContainer.style.display = 'none';
+            feeAlert.style.display = 'none';
+        }
+    });
+    </script>
+    
+
+</body>
+</html>
