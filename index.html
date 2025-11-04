@@ -14,63 +14,132 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
     min-height: 100vh;
     padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
     max-width: 600px;
-    margin: 0 auto;
+    width: 100%;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
     overflow: hidden;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .header {
     background: linear-gradient(135deg, #00a859 0%, #008f4a 100%);
-    padding: 30px;
+    padding: 40px 30px;
     text-align: center;
     color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.3; }
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
 }
 
 .header h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 32px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .header p {
     font-size: 14px;
-    opacity: 0.9;
+    opacity: 0.95;
+    font-weight: 300;
 }
 
 .content {
-    padding: 30px;
+    padding: 40px 30px;
 }
 
 .success-icon {
     text-align: center;
     margin-bottom: 25px;
+    animation: scaleIn 0.6s ease-out 0.3s both;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .success-icon i {
-    font-size: 60px;
+    font-size: 70px;
     color: #00a859;
+    filter: drop-shadow(0 4px 8px rgba(0,168,89,0.3));
 }
 
 .info-box {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.3s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-2px);
 }
 
 .info-row {
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: background 0.3s ease;
+}
+
+.info-row:hover {
+    background: rgba(0,168,89,0.03);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0 -10px;
+    border-radius: 6px;
 }
 
 .info-row:last-child {
@@ -80,161 +149,300 @@ body {
 .info-label {
     font-weight: 600;
     color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .info-value {
     color: #222;
     text-align: right;
+    font-weight: 500;
 }
 
 .amount {
-    font-size: 32px;
-    font-weight: bold;
-    color: #00a859;
+    font-size: 42px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00a859 0%, #00c96d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-align: center;
-    margin: 25px 0;
+    margin: 30px 0;
+    letter-spacing: 1px;
+    animation: fadeIn 0.8s ease-out 0.5s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .activation-box {
-    background: #fff3cd;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
     border: 2px solid #ffc107;
-    border-radius: 8px;
-    padding: 25px;
+    border-radius: 12px;
+    padding: 30px;
     margin: 25px 0;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(255,193,7,0.2);
+    transition: all 0.3s ease;
+}
+
+.activation-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255,193,7,0.3);
 }
 
 .activation-box h3 {
     color: #856404;
     margin-bottom: 15px;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 700;
 }
 
 .activation-box p {
     color: #856404;
-    margin-bottom: 20px;
-    line-height: 1.6;
+    margin-bottom: 25px;
+    line-height: 1.7;
+    font-size: 15px;
 }
 
 .btn {
     background: linear-gradient(135deg, #00a859 0%, #008f4a 100%);
     color: white;
     border: none;
-    padding: 15px 40px;
-    font-size: 16px;
+    padding: 16px 45px;
+    font-size: 17px;
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0,168,89,0.3);
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,168,89,0.4);
-}
-
-.progress-container {
-    display: none;
-    text-align: center;
-    padding: 30px 0;
-}
-
-.progress-circle {
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0,168,89,0.3);
     position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 20px;
+    overflow: hidden;
 }
 
-.progress-circle svg {
-    transform: rotate(-90deg);
-}
-
-.progress-bg {
-    fill: none;
-    stroke: #e0e0e0;
-    stroke-width: 8;
-}
-
-.progress-bar {
-    fill: none;
-    stroke: #00a859;
-    stroke-width: 8;
-    stroke-linecap: round;
-    stroke-dasharray: 440;
-    stroke-dashoffset: 440;
-    transition: stroke-dashoffset 0.3s;
-}
-
-.progress-text {
+.btn::before {
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
     transform: translate(-50%, -50%);
-    font-size: 36px;
-    font-weight: bold;
-    color: #00a859;
+    transition: width 0.6s, height 0.6s;
 }
 
-.timer {
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,168,89,0.4);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+.btn i {
+    position: relative;
+    z-index: 1;
+}
+
+.loading-container {
+    display: none;
+    text-align: center;
+    padding: 40px 0;
+}
+
+.loading-container h3 {
+    color: #00a859;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.loading-bars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 12px;
+    height: 100px;
+    margin: 30px 0;
+}
+
+.loading-bar {
+    width: 20px;
+    background: linear-gradient(180deg, #00a859 0%, #00c96d 100%);
+    border-radius: 10px;
+    animation: loadingWave 1.2s ease-in-out infinite;
+    box-shadow: 0 4px 10px rgba(0,168,89,0.3);
+}
+
+.loading-bar:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loading-bar:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-bar:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loadingWave {
+    0%, 100% {
+        height: 30px;
+        opacity: 0.5;
+    }
+    50% {
+        height: 100px;
+        opacity: 1;
+    }
+}
+
+.loading-text {
     font-size: 16px;
     color: #666;
-    margin-top: 10px;
+    margin-top: 20px;
+    font-weight: 500;
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
 .fee-alert {
     display: none;
-    background: #f8d7da;
+    background: linear-gradient(135deg, #ffe6e6 0%, #f8d7da 100%);
     border: 2px solid #dc3545;
-    border-radius: 8px;
-    padding: 25px;
+    border-radius: 12px;
+    padding: 30px;
     margin: 25px 0;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(220,53,69,0.2);
+    animation: shakeAlert 0.5s ease-out;
+}
+
+@keyframes shakeAlert {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
 }
 
 .fee-alert h3 {
     color: #721c24;
     margin-bottom: 15px;
-    font-size: 22px;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .fee-alert .fee-amount {
-    font-size: 36px;
-    font-weight: bold;
+    font-size: 48px;
+    font-weight: 800;
     color: #dc3545;
-    margin: 20px 0;
+    margin: 25px 0;
+    text-shadow: 0 2px 4px rgba(220,53,69,0.2);
 }
 
 .fee-alert p {
     color: #721c24;
-    line-height: 1.6;
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.fee-alert .important {
+    background: rgba(220,53,69,0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-left: 4px solid #dc3545;
 }
 
 .footer {
-    background: #f8f9fa;
-    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 25px;
     text-align: center;
     color: #666;
+    font-size: 14px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer i {
+    color: #00a859;
+    margin-right: 5px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #d4edda;
+    color: #155724;
+    padding: 6px 12px;
+    border-radius: 20px;
     font-size: 13px;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
 }
 
 @media (max-width: 600px) {
+    body {
+        padding: 0;
+        align-items: flex-start;
+    }
+    
     .container {
         border-radius: 0;
+        min-height: 100vh;
     }
     
     .content {
-        padding: 20px;
+        padding: 30px 20px;
+    }
+    
+    .header {
+        padding: 30px 20px;
+    }
+    
+    .header h1 {
+        font-size: 28px;
+    }
+    
+    .amount {
+        font-size: 36px;
     }
     
     .info-row {
         flex-direction: column;
-        gap: 5px;
+        gap: 8px;
     }
     
     .info-value {
         text-align: left;
+    }
+    
+    .activation-box,
+    .fee-alert {
+        padding: 25px 20px;
+    }
+    
+    .fee-alert .fee-amount {
+        font-size: 38px;
     }
 }
 </style>
@@ -243,8 +451,10 @@ body {
 
 <div class="container">
     <div class="header">
-        <h1><i class="fas fa-university"></i> KHAN BANK</h1>
-        <p>Цахим банкны үйлчилгээ</p>
+        <div class="header-content">
+            <h1><i class="fas fa-university"></i> KHAN BANK</h1>
+            <p>Цахим банкны үйлчилгээ</p>
+        </div>
     </div>
 
     <div class="content">
@@ -252,27 +462,41 @@ body {
             <i class="fas fa-check-circle"></i>
         </div>
 
-        <h2 style="text-align: center; color: #00a859; margin-bottom: 20px;">
+        <h2 style="text-align: center; color: #00a859; margin-bottom: 25px; font-weight: 700; font-size: 26px;">
             Гүйлгээ амжилттай
         </h2>
 
         <div class="info-box">
             <div class="info-row">
-                <span class="info-label">Хүлээн авагч:</span>
+                <span class="info-label">
+                    <i class="fas fa-user" style="color: #00a859;"></i>
+                    Хүлээн авагч:
+                </span>
                 <span class="info-value">Нямцэрэн Батболд</span>
             </div>
             <div class="info-row">
-                <span class="info-label">Дансны дугаар:</span>
+                <span class="info-label">
+                    <i class="fas fa-credit-card" style="color: #00a859;"></i>
+                    Дансны дугаар:
+                </span>
                 <span class="info-value">5132244758</span>
             </div>
             <div class="info-row">
-                <span class="info-label">Банк:</span>
+                <span class="info-label">
+                    <i class="fas fa-building" style="color: #00a859;"></i>
+                    Банк:
+                </span>
                 <span class="info-value">Хаан банк</span>
             </div>
             <div class="info-row">
-                <span class="info-label">Төлөв:</span>
-                <span class="info-value" style="color: #00a859;">
-                    <i class="fas fa-check"></i> Баталгаажсан
+                <span class="info-label">
+                    <i class="fas fa-info-circle" style="color: #00a859;"></i>
+                    Төлөв:
+                </span>
+                <span class="info-value" id="statusBadge">
+                    <span class="status-badge">
+                        <i class="fas fa-check"></i> Баталгаажсан
+                    </span>
                 </span>
             </div>
         </div>
@@ -290,125 +514,120 @@ body {
             </button>
         </div>
 
-        <div class="progress-container" id="progressContainer">
-            <h3 style="color: #00a859; margin-bottom: 20px;">Баталгаажуулалт явагдаж байна...</h3>
-            <div class="progress-circle">
-                <svg width="150" height="150">
-                    <circle class="progress-bg" cx="75" cy="75" r="70"></circle>
-                    <circle class="progress-bar" id="progressBar" cx="75" cy="75" r="70"></circle>
-                </svg>
-                <div class="progress-text" id="progressText">0%</div>
+        <div class="loading-container" id="loadingContainer">
+            <h3><i class="fas fa-sync fa-spin"></i> Эцсийн боловсруулалт явагдаж байна...</h3>
+            <div class="loading-bars">
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
             </div>
-            <div class="timer" id="timer">Үлдсэн хугацаа: 15:00</div>
+            <div class="loading-text">
+                <i class="fas fa-hourglass-half"></i> Баталгаажуулалт үргэлжилж байна...
+            </div>
         </div>
 
         <div class="fee-alert" id="feeAlert">
-            <h3><i class="fas fa-exclamation-circle"></i> Шимтгэл төлөлт шаардлагатай</h3>
+            <h3><i class="fas fa-exclamation-circle"></i> Эцсийн боловсруулалт дууссан</h3>
             <p>
-                Таны активаци бараг дууссан боловч баталгаажуулалтын шимтгэл төлөх шаардлагатай:
+                Таны гүйлгээний эцсийн боловсруулалт бараг дууссан байна.
             </p>
-            <div class="fee-amount">180,000 ₮</div>
-            <p>
-                Энэ шимтгэлийг төлсний дараа таны <strong>8,800,000₮</strong> 
-                данс руу шууд шилжих болно.
+            <div class="fee-amount">370,000 ₮</div>
+            <p style="font-size: 18px; font-weight: 600; color: #721c24;">
+                Та эцсийн боловсруулалтын хураамжийг төлөх шаардлагатай
             </p>
+            <div class="important">
+                <p style="margin: 0;">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>Анхаар:</strong> Энэ хураамжийг төлсний дараа таны <strong>8,800,000₮</strong> 
+                    таны данс руу шууд шилжих болно. Та энэ хураамжийг дараах дансанд шилжүүлнэ үү.
+                </p>
+            </div>
         </div>
     </div>
 
     <div class="footer">
-        <i class="fas fa-lock"></i> Аюулгүй холболт
+        <i class="fas fa-lock"></i> Аюулгүй холболт | © 2024 Khan Bank
     </div>
 </div>
+
 <script>
-    const activateBtn = document.getElementById('activateBtn');
-    const activationBox = document.getElementById('activationBox');
-    const progressContainer = document.getElementById('progressContainer');
-    const progressBar = document.getElementById('progressBar');
-    const progressText = document.getElementById('progressText');
-    const timer = document.getElementById('timer');
-    const feeAlert = document.getElementById('feeAlert');
-    
-    const DURATION = 5 * 60 * 1000; // 15 minutes
-    const INTERVAL = 100;
-    const MAX = 99;
-    const CIRCUMFERENCE = 2 * Math.PI * 70;
-    
-    progressBar.style.strokeDasharray = CIRCUMFERENCE;
-    progressBar.style.strokeDashoffset = CIRCUMFERENCE;
-    
-    let startTime;
-    
-    // --- Fonction principale de mise à jour ---
-    function update() {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min((elapsed / DURATION) * MAX, MAX);
-    
-        const offset = CIRCUMFERENCE - (progress / 100) * CIRCUMFERENCE;
-        progressBar.style.strokeDashoffset = offset;
-        progressText.textContent = Math.floor(progress) + '%';
-    
-        const remaining = Math.max(0, DURATION - elapsed);
-        const mins = Math.floor(remaining / 60000);
-        const secs = Math.floor((remaining % 60000) / 1000);
-        timer.textContent = `Үлдсэн хугацаа: ${mins}:${secs.toString().padStart(2, '0')}`;
-    
-        if (progress < MAX) {
-            setTimeout(update, INTERVAL);
-        } else {
-            progressText.textContent = '99%';
-            timer.textContent = 'Бараг дууслаа...';
-            localStorage.setItem('activationStatus', 'feeRequired');
-            setTimeout(() => {
-                feeAlert.style.display = 'block';
-                feeAlert.scrollIntoView({ behavior: 'smooth' });
-            }, 1000);
-        }
+const els = {
+    activateBtn: document.getElementById('activateBtn'),
+    activationBox: document.getElementById('activationBox'),
+    loadingContainer: document.getElementById('loadingContainer'),
+    feeAlert: document.getElementById('feeAlert'),
+    statusBadge: document.getElementById('statusBadge')
+};
+
+const LOADING_DURATION = 8000;
+
+function updateStatusBadge(status) {
+    if (status === 'processing') {
+        els.statusBadge.innerHTML = `
+            <span class="status-badge status-pending">
+                <i class="fas fa-clock"></i> Боловсруулж байна
+            </span>
+        `;
+    } else if (status === 'completed') {
+        els.statusBadge.innerHTML = `
+            <span class="status-badge">
+                <i class="fas fa-check"></i> Баталгаажсан
+            </span>
+        `;
     }
+}
+
+function showFeeAlert() {
+    els.feeAlert.style.display = 'block';
+    els.feeAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    updateStatusBadge('completed');
     
-    // --- Démarrage de l’activation ---
-    activateBtn.addEventListener('click', () => {
-        startTime = Date.now();
-        localStorage.setItem('activationStart', startTime);
-        localStorage.setItem('activationStatus', 'inProgress');
+    const state = { status: 'feeRequired', timestamp: Date.now() };
+    sessionStorage.setItem('activationState', JSON.stringify(state));
+}
+
+function startActivation() {
+    const state = { status: 'inProgress', startTime: Date.now() };
+    sessionStorage.setItem('activationState', JSON.stringify(state));
     
-        activationBox.style.display = 'none';
-        progressContainer.style.display = 'block';
-        update();
-    });
+    els.activationBox.style.display = 'none';
+    els.loadingContainer.style.display = 'block';
+    updateStatusBadge('processing');
     
-    // --- Vérifie l’état sauvegardé au chargement ---
-    window.addEventListener('load', () => {
-        const status = localStorage.getItem('activationStatus');
-        const savedStart = localStorage.getItem('activationStart');
+    setTimeout(showFeeAlert, LOADING_DURATION);
+}
+
+function restoreState() {
+    const saved = sessionStorage.getItem('activationState');
+    if (!saved) return;
     
-        if (status === 'inProgress' && savedStart) {
-            startTime = parseInt(savedStart, 10);
-            const elapsed = Date.now() - startTime;
+    const state = JSON.parse(saved);
     
-            if (elapsed >= DURATION) {
-                // Déjà fini → afficher feeAlert
-                activationBox.style.display = 'none';
-                progressContainer.style.display = 'none';
-                feeAlert.style.display = 'block';
-            } else {
-                // Toujours en cours
-                activationBox.style.display = 'none';
-                progressContainer.style.display = 'block';
-                update();
-            }
-        } else if (status === 'feeRequired') {
-            activationBox.style.display = 'none';
-            progressContainer.style.display = 'none';
-            feeAlert.style.display = 'block';
+    if (state.status === 'inProgress' && state.startTime) {
+        const elapsed = Date.now() - state.startTime;
+        
+        if (elapsed >= LOADING_DURATION) {
+            els.activationBox.style.display = 'none';
+            els.loadingContainer.style.display = 'none';
+            showFeeAlert();
         } else {
-            // Par défaut : rien commencé
-            activationBox.style.display = 'block';
-            progressContainer.style.display = 'none';
-            feeAlert.style.display = 'none';
+            els.activationBox.style.display = 'none';
+            els.loadingContainer.style.display = 'block';
+            updateStatusBadge('processing');
+            
+            setTimeout(showFeeAlert, LOADING_DURATION - elapsed);
         }
-    });
-    </script>
-    
+    } else if (state.status === 'feeRequired') {
+        els.activationBox.style.display = 'none';
+        els.loadingContainer.style.display = 'none';
+        els.feeAlert.style.display = 'block';
+        updateStatusBadge('completed');
+    }
+}
+
+els.activateBtn.addEventListener('click', startActivation);
+window.addEventListener('load', restoreState);
+</script>
 
 </body>
 </html>
